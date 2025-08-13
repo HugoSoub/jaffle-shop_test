@@ -50,6 +50,11 @@ docker compose ps
 
 - Postgres: `localhost:5433`, user `dbt`, password `dbt`, database `jaffle_shop`
 - Adminer (bonus): http://localhost:8080
+  → `System`: PostgreSQL
+  → `Server`: postgres or localhost:5433
+  → `Username`: dbt
+  → `Password`: dbt
+  → `Database`: jaffle_shop
 
 ### 3) 🖥️ Set up the Python environment with uv
 <pre>
@@ -80,6 +85,7 @@ uv run dbt debug
 
 ### 7) ⏳Load data & run dbt
 <pre>
+uv run dbt deps
 uv run dbt seed --full-refresh
 uv run dbt build
 </pre>
@@ -104,3 +110,4 @@ uv run dbt build
 - `No fork` of the jaffle-shop repo: this project is based on a clone with its Git history removed.
 - `Python 3.11` chosen for stability and compatibility with dbt 1.8. (https://devguide.python.org/versions/)
 - Sensitive credentials must never be committed: always use `.env`.
+- Remove subfolders named `static` and `workflow` in `.github` folder, which are no longer needed for our exercise.
