@@ -1,0 +1,14 @@
+default:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DB_HOST', 'localhost') }}"
+      user: "{{ env_var('DB_USER', 'dbt') }}"
+      password: "{{ env_var('DB_PASSWORD', 'dbt') }}"
+      port: "{{ env_var('DB_PORT', '5433') | int }}"
+      dbname: "{{ env_var('DB_NAME', 'jaffle_shop') }}"
+      schema: "{{ env_var('DB_SCHEMA', 'jaffle_shop') }}"
+      threads: 4
+      connect_timeout: 10
+      sslmode: disable
