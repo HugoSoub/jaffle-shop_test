@@ -111,3 +111,25 @@ uv run dbt build
 - `Python 3.11` chosen for stability and compatibility with dbt 1.8. (https://devguide.python.org/versions/)
 - Sensitive credentials must never be committed: always use `.env`.
 - Remove subfolders named `static` and `workflow` in `.github` folder, which are no longer needed for our exercise.
+- Update package.yml
+  - Before :
+  <pre>
+  packages:
+    - package: dbt-labs/dbt_utils
+      version: 1.1.1
+    - package: godatadriven/dbt_date
+      version: 0.10.0
+    - git: "https://github.com/dbt-labs/dbt-audit-helper.git"
+      revision: main
+  </pre>
+  - After:
+  <pre>
+  packages:
+    - package: dbt-labs/dbt_utils
+      version: "1.3.0"
+    - package: godatadriven/dbt_date
+      version: "0.16.1"
+    - git: "https://github.com/dbt-labs/dbt-audit-helper.git"
+      revision: b8f3a3348ce0ff8afc3aa4b9ade2123b00772473
+  </pre>
+- Respect the logic of one yml file per sql file in the models folder as for staging and marts.

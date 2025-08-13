@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: avg_items_by_location
+    description: "Average number of items per order by store/location."
+    columns:
+      - name: location_id
+        tests: [not_null]
+      - name: avg_items_per_order
+        description: "Average count of items per order for the location."
