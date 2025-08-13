@@ -50,11 +50,11 @@ docker compose ps
 
 - Postgres: `localhost:5433`, user `dbt`, password `dbt`, database `jaffle_shop`
 - Adminer (bonus): http://localhost:8080
-  → `System`: PostgreSQL
-  → `Server`: postgres or localhost:5433
-  → `Username`: dbt
-  → `Password`: dbt
-  → `Database`: jaffle_shop
+  - `System`: PostgreSQL
+  - `Server`: postgres or localhost:5433
+  - `Username`: dbt
+  - `Password`: dbt
+  - `Database`: jaffle_shop
 
 ### 3) 🖥️ Set up the Python environment with uv
 <pre>
