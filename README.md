@@ -54,7 +54,7 @@ docker compose ps
 ### 3) 🖥️ Set up the Python environment with uv
 <pre>
 uv init --python 3.11
-uv add "dbt-core~=1.8" "dbt-postgres~=1.8" "psycopg[binary]>=3.1" "python-dotenv>=1.1.1"
+uv sync
 </pre>
 
 ### 4) ✏️ Configure environment variables
@@ -67,8 +67,9 @@ uv add "dbt-core~=1.8" "dbt-postgres~=1.8" "psycopg[binary]>=3.1" "python-dotenv
 ### 5) 📜 Set the dbt profile path
 
 <pre>
-$ export DBT_PROFILES_DIR="$PWD/profiles"   # macOS/Linux
-$ $env:DBT_PROFILES_DIR = "$PWD\profiles"   # Windows PowerShell
+export DBT_PROFILES_DIR="$PWD/profiles"    # macOS/Linux
+$env:DBT_PROFILES_DIR = "$PWD\profiles"    # Windows PowerShell
+set DBT_PROFILES_DIR = "$PWD\profiles"     # Anaconda prompt
 </pre>
 
 ### 6) 🧪 Test the connection
