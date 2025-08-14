@@ -8,7 +8,27 @@ on:
 jobs:
   lint-sql:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: jaffle_shop
+          POSTGRES_USER: dbt
+          POSTGRES_PASSWORD: dbt
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U dbt -d jaffle_shop -h 127.0.0.1"
+          --health-interval=10s --health-timeout=5s --health-retries=5
+
     env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_USER: dbt
+      DB_PASSWORD: dbt
+      DB_NAME: jaffle_shop
+      DB_SCHEMA: jaffle_shop
       DBT_PROFILES_DIR: ${{ github.workspace }}/profiles
 
     steps:
@@ -21,13 +41,13 @@ jobs:
       - name: Set up Python 3.11
         run: uv python install 3.11
 
-      - name: Install Python deps (uv sync)
+      - name: Install deps (uv)
         run: uv sync --dev
 
       - name: Install dbt packages
         run: uv run dbt deps
 
-      - name: Show versions
+      - name: Versions
         run: |
           uv run dbt --version
           uv run python -m sqlfluff --version
