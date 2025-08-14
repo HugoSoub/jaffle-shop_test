@@ -99,14 +99,37 @@ uv run dbt build
 ---
 ## 🎁 4. Bonus
 
-### 💾 Linting
+### 💾 SQL Linting (SQLFluff + dbt)
 
-Integration of `SQLFluff` with new rules in the `.sqlfluff` file
-If you want to test copy this command on the terminal in the project :
+This project uses SQLFluff to lint dbt SQL models.
+- Config file: .sqlfluff (templater = dbt, dialect = postgres, profiles_dir=profiles)
+- Ignores build & venv dirs (e.g. target/, .venv/)
+Run locally:
 <pre>
-python -m sqlfluff lint models/
+# Lint the whole project
+python -m sqlfluff lint
+
+# Lint only my models
+python -m sqlfluff lint models/mdpi
+
+# Auto-fix safe issues (indent, commas, spacing)
+python -m sqlfluff fix models/mdpi
 </pre>
----
+
+We also run SQLFluff automatically before each commit to block non-conforming SQL.
+
+### 1) 🖥️ Install & enable hooks:
+<pre>
+pip install pre-commit
+pre-commit install
+</pre>
+
+### 2) ▶️ First start on all files (optional)
+<pre>
+pre-commit run --all-files
+</pre>
+
+---:
 
 ## 🛠 5. Useful Commands
 
