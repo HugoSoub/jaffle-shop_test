@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: top3_customers_by_invoiced_amount_month
+    description: >
+      Top 3 customers by monthly invoiced amount, based on stg_orders.order_total.
+    columns:
+      - name: month
+        description: Order month (truncated to the first day).
+        tests: [not_null]
+
+      - name: customer_id
+        description: Unique customer identifier.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+
+      - name: customer_name
+        description: Customer name.
+        tests: [not_null]
+
+      - name: invoiced_amount_ttc
+        description: Monthly invoiced amount (tax included), aggregated.
+        tests: [not_null]
+
+      - name: monthly_rank
+        description: Monthly rank (1 to 3).
+        tests: [not_null]
