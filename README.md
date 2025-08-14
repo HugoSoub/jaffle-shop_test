@@ -174,5 +174,4 @@ pre-commit run --all-files
       revision: b8f3a3348ce0ff8afc3aa4b9ade2123b00772473
   </pre>
 - Respect the logic of one yml file per sql file in the models folder as for staging and marts.
-
-![SQL Lint](https://github.com/<org>/<repo>/actions/workflows/sqlfluff.yml/badge.svg)
+- I formatted all the .yml files in the models folder to update them with the new dbt standards found in their documentation, which removes the warnings during the build.
