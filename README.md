@@ -1,7 +1,8 @@
 # 🏢​ – Data Engineering exercice
 
-This project is technical evaluation, based on the official [`jaffle-shop`](https://github.com/dbt-labs/jaffle-shop).  
-
+- This project is technical evaluation, based on the official [`jaffle-shop`](https://github.com/dbt-labs/jaffle-shop).
+- For part two, all files are located in the path: `.\models\mdpi`
+- The profiles.yml file is located in the `.\profiles folder`.
 ## 📦 1. Technical Architecture
 
 ### 🐋 Docker
@@ -75,6 +76,11 @@ uv sync
 export DBT_PROFILES_DIR="$PWD/profiles"    # macOS/Linux
 $env:DBT_PROFILES_DIR = "$PWD\profiles"    # Windows PowerShell
 set DBT_PROFILES_DIR = "$PWD\profiles"     # Anaconda prompt
+</pre>
+
+If there is an error during the command during the dbt test at the profiles.yml file path, write the entire path. Example:
+<pre>
+set $env:DBT_PROFILES_DIR = "E:\Dev\exo\jaffle-shop_test\profiles"
 </pre>
 
 ### 6) 🧪 Test the connection

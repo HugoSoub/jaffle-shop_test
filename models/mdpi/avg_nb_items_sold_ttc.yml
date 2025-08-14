@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: fct_product_sales_summary
+    description: >
+      Summary of sales by product: number of items sold and average unit price including tax.
+      Calculation of tax included = unit_price_ht * (1 + tax_rate for the order location).
+      One line in stg_order_items corresponds to one item sold.
+    meta:
+      owner: data-team
+    tags: ["mdpi", "facts", "sales"]
+
+    columns:
+      - name: product_id
+        description: Unique product identifier.
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
+
+      - name: product_name
+        description: Product name.
+        tests:
+          - not_null
+
+      - name: items_sold
+        description: Number of items sold (1 row = 1 item).
+        tests:
+          - not_null
+
+      - name: avg_unit_price_tax_included
+        description: Average unit price including tax, rounded to two decimal places.
+        tests:
+          - not_null
+
