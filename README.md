@@ -130,7 +130,7 @@ pre-commit install
 pre-commit run --all-files
 </pre>
 
----:
+---
 
 ## 🛠 5. Useful Commands
 
