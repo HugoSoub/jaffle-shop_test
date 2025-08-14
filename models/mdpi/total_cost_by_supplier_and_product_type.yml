@@ -1,0 +1,12 @@
+version: 2
+models:
+  - name: purchase_cost_by_year_and_product_type
+    description: Total purchase cost per calendar year and product type (1 row = 1 item).
+    tags: ["mdpi","costs","procurement"]
+    columns:
+      - name: year
+        tests: [not_null]
+      - name: product_type
+        tests: [not_null]
+      - name: total_purchase_cost
+        tests: [not_null]
