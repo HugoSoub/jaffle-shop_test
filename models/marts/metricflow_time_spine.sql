@@ -1,13 +1,8 @@
 {{ config(materialized='table') }}
-
--- Time spine quotidienne sur les 10 dernières années jusqu'à demain
-WITH spine AS (
-  {{ dbt_utils.date_spine(
-      datepart="day",
-      start_date="(current_date - interval '3650 days')::date",
-      end_date="(current_date + interval '1 day')::date"
-  ) }}
-)
-
-SELECT date_day::date AS date_day
-FROM spine
+-- Daily time spine over the last 10 years until tomorrow
+SELECT gs::date AS date_day
+FROM generate_series(
+    (current_date - interval '3650 days'),
+    (current_date + interval '1 day'),
+    interval '1 day'
+) AS gs
