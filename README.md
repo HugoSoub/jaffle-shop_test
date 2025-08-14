@@ -130,6 +130,10 @@ pre-commit install
 pre-commit run --all-files
 </pre>
 
+### 3) ✏️ Git commit + Git hub workflow
+- For each commit, the quality of the SQL is checked. If it does not comply with the rules, the commit does not work.
+- After a push, a workflow is launched to check if the SQL is correct. It returns an error in the jobs available on the repo.
+
 ---
 
 ## 🛠 5. Useful Commands
