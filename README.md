@@ -1,6 +1,7 @@
 # 🏢​ – Data Engineering exercice
 
 - This project is technical evaluation, based on the official [`jaffle-shop`](https://github.com/dbt-labs/jaffle-shop).
+- My doc for explain my job : https://docs.google.com/document/d/1ecU3pr6IcKysFwhdk9d1Di1unPHwDQ-jO_z3p5Evzso/edit?usp=sharing
 - For part two, all files are located in the path: `.\models\mdpi`
 - The profiles.yml file is located in the `.\profiles folder`.
 ## 📦 1. Technical Architecture
