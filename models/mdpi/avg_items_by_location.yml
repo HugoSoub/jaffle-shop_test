@@ -3,6 +3,7 @@ version: 2
 models:
   - name: avg_items_by_location
     description: "Average number of items per order by store/location."
+    tags: ["mdpi", "sales", "kpi"]
     columns:
       - name: location_id
         tests: [not_null]

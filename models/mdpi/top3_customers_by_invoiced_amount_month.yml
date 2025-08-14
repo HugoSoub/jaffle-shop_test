@@ -4,6 +4,7 @@ models:
   - name: top3_customers_by_invoiced_amount_month
     description: >
       Top 3 customers by monthly invoiced amount, based on stg_orders.order_total.
+    tags: ["mdpi", "sales", "kpi"]
     columns:
       - name: month
         description: Order month (truncated to the first day).

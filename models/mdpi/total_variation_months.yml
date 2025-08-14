@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: total_variation_months
+    description: >
+      Monthly total invoiced amount (TTC) and month-over-month variation (%),
+      computed from stg_orders.order_total.
+    tags: ["mdpi", "sales", "kpi"]
+
+    columns:
+      - name: month
+        description: Month (truncated to the first day).
+        tests: [not_null, unique]
+
+      - name: total_invoiced_amount_ttc
+        description: Total monthly invoiced amount (tax included).
+        tests: [not_null]
+
+      - name: prev_total_invoiced_amount_ttc
+        description: Previous month's total invoiced amount (tax included). May be NULL for the first month.
+
+      - name: mom_variation_pct
+        description: Month-over-month variation percentage. NULL when previous month is NULL or zero.
