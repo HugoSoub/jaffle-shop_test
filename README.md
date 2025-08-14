@@ -1,6 +1,7 @@
 # 🏢​ – Data Engineering exercice
 
 - This project is technical evaluation, based on the official [`jaffle-shop`](https://github.com/dbt-labs/jaffle-shop).
+- My doc for explain my job : https://docs.google.com/document/d/1ecU3pr6IcKysFwhdk9d1Di1unPHwDQ-jO_z3p5Evzso/edit?usp=sharing
 - For part two, all files are located in the path: `.\models\mdpi`
 - The profiles.yml file is located in the `.\profiles folder`.
 ## 📦 1. Technical Architecture
@@ -80,7 +81,7 @@ set DBT_PROFILES_DIR = "$PWD\profiles"     # Anaconda prompt
 
 If there is an error during the command during the dbt test at the profiles.yml file path, write the entire path. Example:
 <pre>
-set $env:DBT_PROFILES_DIR = "E:\Dev\exo\jaffle-shop_test\profiles"
+set DBT_PROFILES_DIR=E:\Dev\MDPI\jaffle-shop_test\profiles
 </pre>
 
 ### 6) 🧪 Test the connection
@@ -124,12 +125,12 @@ pip install pre-commit
 pre-commit install
 </pre>
 
-### 2) ▶️ First start on all files (optional)
+### 2) ▶️ First start on all files (optional and longer)
 <pre>
 pre-commit run --all-files
 </pre>
 
----:
+---
 
 ## 🛠 5. Useful Commands
 
@@ -173,5 +174,4 @@ pre-commit run --all-files
       revision: b8f3a3348ce0ff8afc3aa4b9ade2123b00772473
   </pre>
 - Respect the logic of one yml file per sql file in the models folder as for staging and marts.
-
-![SQL Lint](https://github.com/<org>/<repo>/actions/workflows/sqlfluff.yml/badge.svg)
+- I formatted all the .yml files in the models folder to update them with the new dbt standards found in their documentation, which removes the warnings during the build.
