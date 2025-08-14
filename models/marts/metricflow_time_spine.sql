@@ -1,4 +1,3 @@
--- models/marts/metricflow_time_spine.sql
 {{ config(materialized='table') }}
 
 -- Time spine quotidienne sur les 10 dernières années jusqu'à demain
@@ -10,4 +9,5 @@ WITH spine AS (
   ) }}
 )
 
-SELECT date_day::date AS date_day FROM spine
+SELECT date_day::date AS date_day
+FROM spine
