@@ -1,17 +1,13 @@
--- metricflow_time_spine.sql
-WITH
+-- models/marts/metricflow_time_spine.sql
+{{ config(materialized='table') }}
 
-days AS (
-
-    --for BQ adapters use "DATE('01/01/2000','mm/dd/yyyy')"
-    {{ dbt_date.get_base_dates(n_dateparts=365*10, datepart="day") }}),
-
-cast_to_date AS (
-
-    SELECT cast(date_day AS date) AS date_day
-
-    FROM days
-
+-- Time spine quotidienne sur les 10 dernières années jusqu'à demain
+WITH spine AS (
+  {{ dbt_utils.date_spine(
+      datepart="day",
+      start_date="(current_date - interval '3650 days')::date",
+      end_date="(current_date + interval '1 day')::date"
+  ) }}
 )
 
-SELECT * FROM cast_to_date
+SELECT date_day::date AS date_day FROM spine

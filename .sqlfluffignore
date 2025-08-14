@@ -1,5 +1,10 @@
-target
-dbt_packages
-macros
-.venv
-models/marts/metricflow_time_spine.sql
+target/
+dbt_packages/
+.venv/
+venv/
+.env/
+__pycache__/
+node_modules/
+dist/
+build/
+logs/

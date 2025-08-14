@@ -6,24 +6,36 @@ models:
     columns:
       - name: month_clean
         description: Order month (truncated to the first day).
-        tests: [not_null]
+        data_tests:
+          - not_null
 
       - name: customer_id
         description: Unique customer identifier.
-        tests:
+        data_tests:
           - not_null
           - relationships:
-              to: ref('stg_customers')
-              field: customer_id
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
 
       - name: customer_name
         description: Customer name.
-        tests: [not_null]
+        data_tests:
+          - not_null
 
       - name: invoiced_amount_ttc
         description: Monthly invoiced amount (tax included), aggregated.
-        tests: [not_null]
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
 
       - name: monthly_rank
         description: Monthly rank (1 to 3).
-        tests: [not_null]
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 1
+                max_value: 3

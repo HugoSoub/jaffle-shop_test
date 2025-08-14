@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_product_sales_summary
+  - name: avg_nb_items_sold_ttc
     description: >
       Summary of sales by product: number of items sold and average unit price including tax.
       Calculation of tax included = unit_price_ht * (1 + tax_rate for the order location).
@@ -15,8 +15,9 @@ models:
           - not_null
           - unique
           - relationships:
-              to: ref('stg_products')
-              field: product_id
+              arguments:
+                to: ref('stg_products')
+                field: product_id
 
       - name: product_name
         description: Product name.

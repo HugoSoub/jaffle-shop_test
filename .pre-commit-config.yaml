@@ -1,4 +1,6 @@
-exclude: ^(target/|venv/|\.venv/|dbt_packages/)
+minimum_pre_commit_version: "3.5.0"
+
+exclude: ^(target/|venv/|\.venv/|dbt_packages/|node_modules/|dist/|build/)
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -8,6 +10,7 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
       - id: requirements-txt-fixer
+
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.3.4
     hooks:
@@ -19,15 +22,15 @@ repos:
     rev: 3.0.7
     hooks:
       - id: sqlfluff-lint
-        files: ^(models|snapshots|seeds|macros)/.*\.sql$
+        files: ^(models|macros|snapshots)/.*\.sql$
         additional_dependencies:
           - sqlfluff-templater-dbt
-          - dbt-core==1.9.0
+          - dbt-core==1.10.8
           - dbt-postgres==1.9.0
       - id: sqlfluff-fix
         stages: [manual]
-        files: ^(models|snapshots|seeds|macros)/.*\.sql$
+        files: ^(models|macros|snapshots)/.*\.sql$
         additional_dependencies:
           - sqlfluff-templater-dbt
-          - dbt-core==1.9.0
+          - dbt-core==1.10.8
           - dbt-postgres==1.9.0
