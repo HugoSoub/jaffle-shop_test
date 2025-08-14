@@ -125,7 +125,7 @@ pip install pre-commit
 pre-commit install
 </pre>
 
-### 2) ▶️ First start on all files (optional)
+### 2) ▶️ First start on all files (optional and longer)
 <pre>
 pre-commit run --all-files
 </pre>
