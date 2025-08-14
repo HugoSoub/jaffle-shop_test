@@ -10,3 +10,9 @@ dependencies = [
     "psycopg[binary]>=3.1", # binary for the speed
     "python-dotenv>=1.1.1", # for the security
 ]
+
+[dependency-groups]
+dev = [
+    "sqlfluff>=3.4.2",
+    "sqlfluff-templater-dbt>=3.4.2",
+]

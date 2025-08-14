@@ -1,9 +1,9 @@
-with
+WITH
 
-locations as (
+locations AS (
 
-    select * from {{ ref('stg_locations') }}
+    SELECT * FROM {{ ref('stg_locations') }}
 
 )
 
-select * from locations
+SELECT * FROM locations

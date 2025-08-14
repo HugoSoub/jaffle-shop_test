@@ -1,19 +1,17 @@
 -- metricflow_time_spine.sql
-with
+WITH
 
-days as (
+days AS (
 
     --for BQ adapters use "DATE('01/01/2000','mm/dd/yyyy')"
-    {{ dbt_date.get_base_dates(n_dateparts=365*10, datepart="day") }}
+    {{ dbt_date.get_base_dates(n_dateparts=365*10, datepart="day") }}),
 
-),
+cast_to_date AS (
 
-cast_to_date as (
+    SELECT cast(date_day AS date) AS date_day
 
-    select cast(date_day as date) as date_day
-
-    from days
+    FROM days
 
 )
 
-select * from cast_to_date
+SELECT * FROM cast_to_date

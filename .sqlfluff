@@ -1,40 +1,32 @@
 [sqlfluff]
-templater = dbt-cloud
-dialect = snowflake
-runaway_limit = 10
-max_line_length = 80
+templater = dbt
+dialect = postgres
+max_line_length = 120
 indent_unit = space
+ignore = target/,venv/,.venv/
 
 [sqlfluff:templater:dbt]
-profiles_dir = .
+project_dir = .
+profiles_dir = profiles
 
-[sqlfluff:indentation]
-tab_space_size = 4
+# Rules :
 
-[sqlfluff:layout:type:comma]
-spacing_before = touch
-line_position = trailing
-
+# SQL KEYWORDS (SELECT, FROM, WHERE, etc.): UPPERCASE
 [sqlfluff:rules:capitalisation.keywords]
-capitalisation_policy = lower
+capitalisation_policy = upper
 
-[sqlfluff:rules:aliasing.table]
-aliasing = explicit
-
-[sqlfluff:rules:aliasing.column]
-aliasing = explicit
-
-[sqlfluff:rules:aliasing.expression]
-allow_scalar = False
-
-[sqlfluff:rules:capitalisation.identifiers]
-extended_capitalisation_policy = lower
-
+# FUNCTION names (sum, avg, date_trunc, etc.): lowercase
 [sqlfluff:rules:capitalisation.functions]
 capitalisation_policy = lower
 
-[sqlfluff:rules:capitalisation.literals]
-capitalisation_policy = lower
+# IDENTIFIERS (column/table names): lowercase
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower
 
-[sqlfluff:rules:ambiguous.column_references]  # Number in group by
-group_by_and_order_by_style = implicit
+# Expected indentation: 4 spaces per level
+[sqlfluff:rules:layout.indent]
+indent_size = 4
+
+# trailing comma
+[sqlfluff:rules:layout.commas]
+comma_style = trailing

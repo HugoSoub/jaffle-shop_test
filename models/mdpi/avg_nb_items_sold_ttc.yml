@@ -32,4 +32,3 @@ models:
         description: Average unit price including tax, rounded to two decimal places.
         tests:
           - not_null
-

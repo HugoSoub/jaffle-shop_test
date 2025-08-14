@@ -1,42 +1,43 @@
 -- AUTHOR : Hugo Soubeyrat
 -- Top 3 customers by invoiced amount by month
 
-with orders as (
-    select
+WITH orders AS (
+    SELECT
         o.customer_id,
-        date_trunc('month', o.ordered_at)::date as month, -- returns to the first day of the month for every row
-        o.order_total::numeric as order_total
-    from {{ ref('stg_orders') }} as o
-    where o.ordered_at is not null
+        date_trunc('month', o.ordered_at)::date AS month_clean, -- returns to the first day of the month for every row
+        o.order_total::numeric AS order_total
+    FROM {{ ref('stg_orders') }} AS o
+    WHERE o.ordered_at IS NOT null
 ),
 
 -- Monthly amount per customer
-customer_amounts_monthly as (
-    select
+customer_amounts_monthly AS (
+    SELECT
         customer_id,
-        month,
-        sum(order_total)::numeric(18,2) as invoiced_amount_ttc
-    from orders
-    group by 1,2
+        month_clean,
+        sum(order_total)::numeric(18, 2) AS invoiced_amount_ttc
+    FROM orders
+    GROUP BY customer_id, month_clean
 ),
 
 -- Top 3 ranking by month
-ranked as (
-    select
-        cam.month,
+ranked AS (
+    SELECT
+        cam.month_clean,
         cam.customer_id,
         cam.invoiced_amount_ttc,
-        dense_rank() over (partition by cam.month order by cam.invoiced_amount_ttc desc) as monthly_rank -- Create a rank for each month and give the same place if we have a equal score
-    from customer_amounts_monthly cam
+        -- Create a rank for each month and give the same place if we have a equal score
+        dense_rank() OVER (PARTITION BY cam.month_clean ORDER BY cam.invoiced_amount_ttc DESC) AS monthly_rank
+    FROM customer_amounts_monthly AS cam
 )
 
-select
-    r.month,
+SELECT
+    r.month_clean,
     r.customer_id,
     c.customer_name,
     r.invoiced_amount_ttc,
     r.monthly_rank
-from ranked r
-join {{ ref('stg_customers') }} c using (customer_id)
-where r.monthly_rank <= 3
-order by r.month asc, r.monthly_rank asc, r.invoiced_amount_ttc desc, r.customer_id
+FROM ranked AS r
+INNER JOIN {{ ref('stg_customers') }} AS c ON r.customer_id = c.customer_id
+WHERE r.monthly_rank <= 3
+ORDER BY r.month_clean ASC, r.monthly_rank ASC, r.invoiced_amount_ttc DESC, r.customer_id ASC

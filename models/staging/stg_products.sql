@@ -1,34 +1,33 @@
-with
+WITH
 
-source as (
+source AS (
 
-    select * from {{ source('ecom', 'raw_products') }}
+    SELECT * FROM {{ source('ecom', 'raw_products') }}
 
 ),
 
-renamed as (
+renamed AS (
 
-    select
+    SELECT
 
         ----------  ids
-        sku as product_id,
+        sku AS product_id,
 
         ---------- text
-        name as product_name,
-        type as product_type,
-        description as product_description,
-
+        name AS product_name,
+        type AS product_type,
+        description AS product_description,
 
         ---------- numerics
-        {{ cents_to_dollars('price') }} as product_price,
+        {{ cents_to_dollars('price') }} AS product_price,
 
         ---------- booleans
-        coalesce(type = 'jaffle', false) as is_food_item,
+        coalesce(type = 'jaffle', false) AS is_food_item,
 
-        coalesce(type = 'beverage', false) as is_drink_item
+        coalesce(type = 'beverage', false) AS is_drink_item
 
-    from source
+    FROM source
 
 )
 
-select * from renamed
+SELECT * FROM renamed

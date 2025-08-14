@@ -8,7 +8,7 @@ models:
     tags: ["mdpi", "sales", "kpi"]
 
     columns:
-      - name: month
+      - name: month_clean
         description: Month (truncated to the first day).
         tests: [not_null, unique]
 

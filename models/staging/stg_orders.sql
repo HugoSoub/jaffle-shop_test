@@ -1,33 +1,33 @@
-with
+WITH
 
-source as (
+source AS (
 
-    select * from {{ source('ecom', 'raw_orders') }}
+    SELECT * FROM {{ source('ecom', 'raw_orders') }}
 
 ),
 
-renamed as (
+renamed AS (
 
-    select
+    SELECT
 
         ----------  ids
-        id as order_id,
-        store_id as location_id,
-        customer as customer_id,
+        id AS order_id,
+        store_id AS location_id,
+        customer AS customer_id,
 
         ---------- numerics
-        subtotal as subtotal_cents,
-        tax_paid as tax_paid_cents,
-        order_total as order_total_cents,
-        {{ cents_to_dollars('subtotal') }} as subtotal,
-        {{ cents_to_dollars('tax_paid') }} as tax_paid,
-        {{ cents_to_dollars('order_total') }} as order_total,
+        subtotal AS subtotal_cents,
+        tax_paid AS tax_paid_cents,
+        order_total AS order_total_cents,
+        {{ cents_to_dollars('subtotal') }} AS subtotal,
+        {{ cents_to_dollars('tax_paid') }} AS tax_paid,
+        {{ cents_to_dollars('order_total') }} AS order_total,
 
         ---------- timestamps
-        {{ dbt.date_trunc('day','ordered_at') }} as ordered_at
+        {{ dbt.date_trunc('day','ordered_at') }} AS ordered_at
 
-    from source
+    FROM source
 
 )
 
-select * from renamed
+SELECT * FROM renamed

@@ -1,39 +1,39 @@
-with
+WITH
 
-customers as (
+customers AS (
 
-    select * from {{ ref('stg_customers') }}
-
-),
-
-orders as (
-
-    select * from {{ ref('orders') }}
+    SELECT * FROM {{ ref('stg_customers') }}
 
 ),
 
-customer_orders_summary as (
+orders AS (
 
-    select
+    SELECT * FROM {{ ref('orders') }}
+
+),
+
+customer_orders_summary AS (
+
+    SELECT
         orders.customer_id,
 
-        count(distinct orders.order_id) as count_lifetime_orders,
-        count(distinct orders.order_id) > 1 as is_repeat_buyer,
-        min(orders.ordered_at) as first_ordered_at,
-        max(orders.ordered_at) as last_ordered_at,
-        sum(orders.subtotal) as lifetime_spend_pretax,
-        sum(orders.tax_paid) as lifetime_tax_paid,
-        sum(orders.order_total) as lifetime_spend
+        count(DISTINCT orders.order_id) AS count_lifetime_orders,
+        count(DISTINCT orders.order_id) > 1 AS is_repeat_buyer,
+        min(orders.ordered_at) AS first_ordered_at,
+        max(orders.ordered_at) AS last_ordered_at,
+        sum(orders.subtotal) AS lifetime_spend_pretax,
+        sum(orders.tax_paid) AS lifetime_tax_paid,
+        sum(orders.order_total) AS lifetime_spend
 
-    from orders
+    FROM orders
 
-    group by 1
+    GROUP BY 1
 
 ),
 
-joined as (
+joined AS (
 
-    select
+    SELECT
         customers.*,
 
         customer_orders_summary.count_lifetime_orders,
@@ -43,16 +43,16 @@ joined as (
         customer_orders_summary.lifetime_tax_paid,
         customer_orders_summary.lifetime_spend,
 
-        case
-            when customer_orders_summary.is_repeat_buyer then 'returning'
-            else 'new'
-        end as customer_type
+        CASE
+            WHEN customer_orders_summary.is_repeat_buyer THEN 'returning'
+            ELSE 'new'
+        END AS customer_type
 
-    from customers
+    FROM customers
 
-    left join customer_orders_summary
-        on customers.customer_id = customer_orders_summary.customer_id
+    LEFT JOIN customer_orders_summary
+        ON customers.customer_id = customer_orders_summary.customer_id
 
 )
 
-select * from joined
+SELECT * FROM joined
